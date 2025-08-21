@@ -188,6 +188,17 @@ const Portfolio = () => {
       image:
         "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000014303/13ab52d526ec8f98d3084eadc51d29665010c8eb9a3035aa0b04dbd6fdb8d50b",
     },
+    {
+      title: "Certificates",
+      description: "I have uploaded my certificates.",
+      tech: ["Cyber security","NPTEL"],
+      demo: "https://drive.google.com/drive/u/0/folders/1HUM5zgWz5jslxVi4ibblgBO9V8wSesnh",
+      demoLabel: "Drive Link",
+      featured: true,
+      inProgress: false,
+      image:
+        "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0d/ec/39/0dec398f-cb6b-6d2c-76c0-053fdbc07bce/logo_drive_universal-0-1x_U007epad-0-0-0-1-0-0-0-0-85-220-0.png/1200x630wa.png",
+    },
   ];
 
   if (!mounted) return null;

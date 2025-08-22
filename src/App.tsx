@@ -36,6 +36,7 @@ import { Badge } from "@/components/ui/badge";
 
 // Profile picture stays local (can replace with URL if you want)
 import profilePic from "@/assets/pfp.jpg";
+import resumePDF from "@/assets/Ebin_Resume.pdf"
 
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -366,7 +367,7 @@ const Portfolio = () => {
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-smooth" />
               </Button>
 
-              <a href="/Your_Resume.pdf" download className="w-full sm:w-52">
+              <a href="/Ebin_Resume.pdf" download className="w-full sm:w-52">
                 <Button
                   variant="outline"
                   size="lg"

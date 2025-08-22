@@ -366,8 +366,11 @@ const Portfolio = () => {
                 View My Work
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-smooth" />
               </Button>
-
-              <a href="/Ebin_Resume.pdf" download className="w-full sm:w-52">
+<a
+              href={resumePDF}
+              download="Ebin_Resume.pdf" 
+              className="w-full sm:w-52"
+            >
                 <Button
                   variant="outline"
                   size="lg"

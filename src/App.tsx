@@ -1,5 +1,5 @@
 import ParticleBackground from "./components/ParticleBackground"; // Adjust path if needed
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Moon,
@@ -24,6 +24,7 @@ import {
   Award,
   Coffee,
   Figma,
+  Send
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,10 +35,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 // Profile picture stays local (can replace with URL if you want)
 import profilePic from "@/assets/pfp.jpg";
 import resumePDF from "@/assets/Ebin_Resume.pdf"
+import emailjs from "@emailjs/browser";
 
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -45,6 +49,40 @@ const Portfolio = () => {
   const [mounted, setMounted] = useState(false);
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const form = useRef();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatusMessage("Sending...");
+
+    emailjs
+      .sendForm(
+        "YOUR_SERVICE_ID",  // Paste your Service ID from EmailJS
+        "YOUR_TEMPLATE_ID", // Paste your Template ID from EmailJS
+        form.current,
+        "YOUR_PUBLIC_KEY"   // Paste your Public Key from EmailJS
+      )
+      .then(
+        (result) => {
+          console.log("SUCCESS!", result.text);
+          setStatusMessage("✅ Message sent successfully!");
+          e.target.reset(); // Clear form fields
+          setTimeout(() => setStatusMessage(""), 4000);
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+          setStatusMessage("❌ Failed to send message. Please try again.");
+          setTimeout(() => setStatusMessage(""), 4000);
+        }
+      )
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+  // --- END OF NEW CODE ---
 
   // Initialize theme
   useEffect(() => {
@@ -721,60 +759,144 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-accent/20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Let's Work Together
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Let's connect and build something amazing together!
-            </p>
+     {/* Contact Section */}
+<section id="contact" className="py-20 bg-accent/20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Section Header */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        Let's Work Together
+      </h2>
+      <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        Have a project in mind or just want to get in touch? I'd love to hear from you.
+      </p>
+    </motion.div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="mailto:ebin05reji@gmail.com"
-                className="w-full sm:w-auto"
-              >
-                <Button size="lg" className="shadow-elegant group w-full">
-                  <Mail className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-                  ebin05reji@gmail.com
-                </Button>
-              </a>
-
-              <div className="flex space-x-4">
-                <a
-                  href="https://github.com/3bin-05"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="outline" size="lg">
-                    <Github className="w-5 h-5 mr-2" />
-                    GitHub
-                  </Button>
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/ebin-reji/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="outline" size="lg">
-                    <Linkedin className="w-5 h-5 mr-2" />
-                    LinkedIn
-                  </Button>
-                </a>
+    {/* Two-Column Layout */}
+    <div className="grid lg:grid-cols-2 gap-12 items-start">
+      
+      {/* Left Column: Contact Form (Unchanged) */}
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
+        <Card className="card-gradient shadow-card hover:shadow-elegant transition-smooth">
+          <CardHeader>
+            <CardTitle className="text-2xl">Send Me a Message</CardTitle>
+            <CardDescription>
+              Fill out the form and I'll get back to you as soon as possible.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form ref={form} onSubmit={sendEmail} className="space-y-6">
+              <div>
+                <Label htmlFor="from_name">Name</Label>
+                <Input
+                  id="from_name" type="text" name="from_name"
+                  placeholder="Your Name" required className="mt-1"
+                />
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+              <div>
+                <Label htmlFor="from_email">Email</Label>
+                <Input
+                  id="from_email" type="email" name="from_email"
+                  placeholder="your.email@example.com" required className="mt-1"
+                />
+              </div>
+              <div>
+                <Label htmlFor="message">Message</Label>
+                <Textarea
+                  id="message" name="message"
+                  placeholder="Your message here..."
+                  required rows={5} className="mt-1"
+                />
+              </div>
+              <div className="flex flex-col items-center">
+                <Button type="submit" size="lg" className="shadow-elegant group w-full" disabled={isSubmitting}>
+                  <Send className="w-5 h-5 mr-2" />
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </Button>
+                {statusMessage && (
+                  <p className="mt-4 text-center text-sm">{statusMessage}</p>
+                )}
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </motion.div>
 
+      {/* Right Column: Social Links (Updated Styling) */}
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="space-y-6"
+      >
+        <h3 className="text-2xl font-semibold text-center lg:text-left">
+          Or Reach Me Directly
+        </h3>
+        <div className="space-y-9"> {/* This controls the spacing between cards */}
+          
+          {/* Email Card */}
+          <a href="mailto:ebin05reji@gmail.com" aria-label="Email Ebin Reji">
+            <Card className="p-4 hover:bg-accent/50 hover:border-primary/30 transition-all duration-300 group">
+              <div className="flex items-center">
+                <Mail className="w-7 h-7 mr-4 text-primary flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground">Email</p>
+                  <p className="text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
+                    ebin05reji@gmail.com
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </a>
+          <div className="space-y-9"></div>
+          {/* GitHub Card */}
+          <a href="https://github.com/3bin-05" target="_blank" rel="noopener noreferrer" aria-label="Ebin Reji's GitHub Profile">
+            <Card className="p-4 hover:bg-accent/50 hover:border-primary/30 transition-all duration-300 group">
+              <div className="flex items-center">
+                <Github className="w-7 h-7 mr-4 text-primary flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground">GitHub</p>
+                  <p className="text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
+                    View my projects and code
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </a>
+          <div className="space-y-9"></div>
+          {/* LinkedIn Card */}
+          <a href="https://www.linkedin.com/in/ebin-reji/" target="_blank" rel="noopener noreferrer" aria-label="Ebin Reji's LinkedIn Profile">
+            <Card className="p-4 hover:bg-accent/50 hover:border-primary/30 transition-all duration-300 group">
+              <div className="flex items-center">
+                <Linkedin className="w-7 h-7 mr-4 text-primary flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground">LinkedIn</p>
+                  <p className="text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
+                    Connect with me professionally
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </a>
+          
+        </div>
+      </motion.div>
+
+    </div>
+  </div>
+</section>
       {/* Footer */}
       <footer className="border-t border-border py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -1,3 +1,4 @@
+import ParticleBackground from "./components/ParticleBackground"; // Adjust path if needed
 import React, { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
@@ -292,6 +293,7 @@ const Portfolio = () => {
         id="hero"
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
+         <ParticleBackground />
         <motion.div
           style={{ y }}
           className="absolute inset-0 hero-gradient opacity-10"

@@ -43,6 +43,7 @@ import profilePic from "@/assets/pfp.jpg";
 import resumePDF from "@/assets/Ebin_Resume.pdf"
 import emailjs from "@emailjs/browser";
 
+
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -60,10 +61,10 @@ const Portfolio = () => {
 
     emailjs
       .sendForm(
-        "YOUR_SERVICE_ID",  // Paste your Service ID from EmailJS
-        "YOUR_TEMPLATE_ID", // Paste your Template ID from EmailJS
+        "service_ryhms4q",  // Paste your Service ID from EmailJS
+        "template_v6ksm2i", // Paste your Template ID from EmailJS
         form.current,
-        "YOUR_PUBLIC_KEY"   // Paste your Public Key from EmailJS
+        "kFYH_oh7eseTb5uzI"   // Paste your Public Key from EmailJS
       )
       .then(
         (result) => {

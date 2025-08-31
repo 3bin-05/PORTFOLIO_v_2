@@ -1,5 +1,7 @@
 import ParticleBackground from "./components/ParticleBackground";
 import LoadingScreen from "./components/LoadingScreen"; // Import the new screen
+import EducationTimeline from "./components/EducationTimeline";
+import StarryBackground from "./components/StarryBackground";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"; // Add AnimatePresence
 import {
@@ -521,60 +523,7 @@ const Portfolio = () => {
               </div>
             </section>
 
-            {/* Education Section */}
-            <section id="education" className="py-20">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-center mb-16"
-                >
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                    Education
-                  </h2>
-                  <p className="text-muted-foreground text-lg">
-                    Academic journey that shaped my technical foundation
-                  </p>
-                </motion.div>
-                <div className="grid md:grid-cols-2 gap-8">
-                  {education.map((edu, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.2 }}
-                    >
-                      <Card className="card-gradient shadow-card hover:shadow-elegant transition-smooth">
-                        <CardHeader>
-                          <div className="flex items-start justify-between">
-                            <div className="space-y-2">
-                              <CardTitle className="text-xl">
-                                {edu.degree}
-                              </CardTitle>
-                              <CardDescription className="text-primary font-medium">
-                                {edu.school}
-                              </CardDescription>
-                              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                <span>{edu.year}</span>
-                                <Badge variant="outline">SGPA: {edu.gpa}</Badge>
-                              </div>
-                            </div>
-                            <GraduationCap className="h-8 w-8 text-primary" />
-                          </div>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          <p className="text-muted-foreground">
-                            {edu.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </section>
+            <EducationTimeline education={education} />
 
             {/* Community Section */}
             <section id="community" className="py-20 bg-accent/20">
@@ -633,8 +582,9 @@ const Portfolio = () => {
             </section>
 
             {/* Projects Section */}
-            <section id="projects" className="py-20">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="projects" className="py-20 relative">
+              <StarryBackground />
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -939,6 +889,7 @@ const Portfolio = () => {
 
             {/* Footer */}
             <footer className="border-t border-border py-8 relative">
+              <StarryBackground />
               {/* Removed BinaryParticles as per user request */}
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                 <div className="text-muted-foreground">

@@ -226,10 +226,21 @@ const Portfolio = () => {
         "https://www.figma.com/design/Ptr6ItOAz4XK482665z7bO/YOUTUBE?node-id=0-1&t=bi70tLoAp90bJPLZ-1",
       demo: "https://www.figma.com/proto/Ptr6ItOAz4XK482665z7bO/YOUTUBE?page-id=0%3A1&node-id=1-3&p=f&viewport=717%2C23%2C0.28&t=vLWMEWoPpGIjftCb-1&scaling=scale-down&content-scaling=fixed",
       demoLabel: "View on Figma",
-      featured: false,
-      inProgress: true,
+      featured: true,
+      inProgress: false,
       image:
         "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000014303/13ab52d526ec8f98d3084eadc51d29665010c8eb9a3035aa0b04dbd6fdb8d50b",
+    },
+    {
+      title: "MuLearn Dashboard",
+      description:
+        "This is my mulearn dashboard were you can see all the tasks that i have done purely through self-study",
+      tech: ["UI/UX", "Cyber security", "Html", "React"],
+      demo: "https://app.mulearn.org/profile/ebinreji@mulearn",
+      demoLabel: "To Dashboard",
+      inProgress: true,
+      image:
+        "https://content3.jdmagicbox.com/comp/def_content/ngos/default-ngos-0.jpg",
     },
     {
       title: "Certificates",

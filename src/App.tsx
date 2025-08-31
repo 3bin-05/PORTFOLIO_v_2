@@ -366,7 +366,7 @@ const Portfolio = () => {
                       stiffness: 260,
                       damping: 20,
                     }}
-                    className="w-40 h-40 mx-auto rounded-full shadow-elegant overflow-hidden"
+                    className="w-40 h-40 mx-auto rounded-full shadow-elegant overflow-hidden animate-glow"
                   >
                     <img
                       src={profilePic}
